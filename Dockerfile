@@ -3,6 +3,7 @@ FROM ${BASE_IMG}
 # FROM ros:foxy
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV IP=${IP}
 
 SHELL ["/bin/bash", "-ce"]
 
@@ -27,4 +28,6 @@ RUN cd src/kmriiwa_ws && \
     rm -rf kmr_sunrise
 
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && colcon build \
+    && colcon build 
+
+ADD ./param/ /kuka_ws/src/kmriiwa_ws/kmr_communication/param/
