@@ -5,11 +5,12 @@ services:
       context: .
       args: 
         BASE_IMG: ros:foxy
-    environment:
-      - DISPLAY=${DISPLAY}
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./param:/kuka_ws/src/kmriiwa_ws/kmr_communication/param
+    env_file:
+      - .env
+    # environment:
+    #   - IP=${IP}
+    # volumes:
+    #   - "./param/:/kuka_ws/src/kmriiwa_ws/kmr_communication/param"
     network_mode: host
     entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && source install/setup.bash && ros2 launch kmr_communication sunrise_communication.launch.py"]
     
