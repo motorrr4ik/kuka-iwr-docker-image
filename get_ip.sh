@@ -1,4 +1,6 @@
 #!/bin/bash
+mkdir -p param
+touch param/bringup.yaml
 IP=$(hostname -I | cut -f1 -d' ')
 echo "kmp_statusdata_node:
   ros__parameters:
@@ -47,4 +49,4 @@ lbr_sensordata_node:
 
     port: 30007
     KMR1/ip: ${IP}
-    KMR2/ip: ${IP}" > /param/bringup.yaml
+    KMR2/ip: ${IP}" > param/bringup.yaml
