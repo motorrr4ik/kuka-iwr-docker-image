@@ -10,5 +10,8 @@
 Шаги для запуска:
 1. Подключиться к сети, в которой находится робот KUKA
 2. Выполнить скрипт для получения IP-адреса: `./get_ip.sh`
-3. Собрать Docker-образ: `docker compose -f docker-compose.yaml build`
+3. Собрать Docker-образ: `docker compose -f docker-compose.yaml build` (Возможно потребуется переподключение к другой сети, если робот находится в локальной сети без доступа в интернет)
 4. Запустить требуемый сервис для взаимодействия с роботом: `docker compose run -it *service-name*`
+## Список доступных сервисов для запуска
+1. `iwr-communication`
+2. `iwr-keyboard-control`
