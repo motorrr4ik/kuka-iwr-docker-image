@@ -1,23 +1,18 @@
 services:
   iwr-communication:
+    image: iwr-main-image
     container_name: iwr-communication
     build:
       context: .
       args: 
         BASE_IMG: ros:foxy
-    volumes:
-      - ./param/:/kuka_ws/src/kmriiwa_ws/kmr_communication/param/
     network_mode: host
     entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && source install/setup.bash && ros2 launch kmr_communication sunrise_communication.launch.py"]
     
   iwr-keyboard-control:
     container_name: iwr-keyboard-control
-    build: 
-      context: .
-      args:
-        BASE_IMG: ros:foxy
+    image: iwr-main-image
+    network_mode: host
     depends_on:
       - iwr-communication
-    working_dir: /kuka_ws/
-    network_mode: host
-    command: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run teleop_twist_keyboard teleop_twist_keyboard"]
+    entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run teleop_twist_keyboard teleop_twist_keyboard"]
