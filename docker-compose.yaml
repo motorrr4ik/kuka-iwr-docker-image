@@ -1,18 +1,23 @@
+version: '3.9'
+
 services:
   iwr-communication:
     image: iwr-main-image
     container_name: iwr-communication
+    entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && source install/setup.bash && ros2 launch kmr_communication sunrise_communication.launch.py"]
     build:
       context: .
+      dockerfile: Dockerfile
       args: 
         BASE_IMG: ros:foxy
     network_mode: host
-    entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && source install/setup.bash && ros2 launch kmr_communication sunrise_communication.launch.py"]
-    
+    ipc: host
+
   iwr-keyboard-control:
-    container_name: iwr-keyboard-control
     image: iwr-main-image
+    container_name: iwr-keyboard-control
+    entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run teleop_twist_keyboard teleop_twist_keyboard"]
     network_mode: host
+    ipc: host
     depends_on:
       - iwr-communication
-    entrypoint: ["/bin/bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run teleop_twist_keyboard teleop_twist_keyboard"]
